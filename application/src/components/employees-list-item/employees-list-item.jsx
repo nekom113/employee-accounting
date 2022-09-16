@@ -1,4 +1,5 @@
 import { Component } from 'react'
+
 import './employees-list-item.css'
 
 export default class EmployeesListItem extends Component {
@@ -7,7 +8,7 @@ export default class EmployeesListItem extends Component {
 		super(props);
 		this.state = {
 			increase: false,
-			like: false
+			promotion: false
 		}
 
 
@@ -17,21 +18,24 @@ export default class EmployeesListItem extends Component {
 			increase: !increase
 		}))
 	}
-
-	switchLike = () => {
-		this.setState(({ like }) => ({
-			like: !like
+	toPromotion = () => {
+		this.setState(({ promotion }) => ({
+			promotion: !promotion
 		}))
 	}
+
 	render() {
 		const { name, salary } = this.props
-		const { increase } = this.state
+		const { increase, promotion } = this.state
 		let styleProperty = "list-group-item d-flex justify-content-between"
 		if (increase) {
-			return styleProperty = styleProperty + 'increase'
+			styleProperty += ' increase';
+		}
+		if (promotion) {
+			styleProperty += ' like';
 		}
 		return (
-			<li onClick={this.switchLike} className={styleProperty}>
+			<li onClick={this.toPromotion} className={styleProperty}>
 				<span className="list-group-item-label">{name}</span>
 				<input type="text" className="list-group-item-input" defaultValue={`${salary}$`} />
 				<div className='d-flex justify-content-center align-items-center'>
