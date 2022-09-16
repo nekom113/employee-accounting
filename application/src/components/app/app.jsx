@@ -5,6 +5,12 @@ import EmployeesList from '../employees-list/employees-list'
 import SearchPanel from '../search-panel/search-panel'
 import './app.css'
 
+const data = [
+	{ name: 'Tony C.', salary: 800, increase: false, id: 1, like: false },
+	{ name: 'Den S.', salary: 500, increase: false, id: 2, like: false },
+	{ name: 'Alex A.', salary: 1200, increase: true, id: 3, like: false },
+	{ name: 'Ponya A.', salary: 2200, increase: true, id: 4, like: false }
+]
 
 export default function App() {
 	return (
@@ -14,7 +20,7 @@ export default function App() {
 				<SearchPanel />
 				<AppFilter />
 			</div>
-			<EmployeesList />
+			<EmployeesList data={data} />
 			<EmployeesAddForm />
 		</div>
 	)
