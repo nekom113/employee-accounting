@@ -6,7 +6,8 @@ export default class EmployeesListItem extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			increase: false
+			increase: false,
+			like: false
 		}
 
 
@@ -16,16 +17,21 @@ export default class EmployeesListItem extends Component {
 			increase: !increase
 		}))
 	}
+
+	switchLike = () => {
+		this.setState(({ like }) => ({
+			like: !like
+		}))
+	}
 	render() {
 		const { name, salary } = this.props
 		const { increase } = this.state
-		function checkAtrribute() {
-			if (increase) {
-				return 'increase'
-			}
+		let styleProperty = "list-group-item d-flex justify-content-between"
+		if (increase) {
+			return styleProperty = styleProperty + 'increase'
 		}
 		return (
-			<li className={"list-group-item d-flex justify-content-between " + checkAtrribute()}>
+			<li onClick={this.switchLike} className={styleProperty}>
 				<span className="list-group-item-label">{name}</span>
 				<input type="text" className="list-group-item-input" defaultValue={`${salary}$`} />
 				<div className='d-flex justify-content-center align-items-center'>

@@ -6,10 +6,10 @@ import SearchPanel from '../search-panel/search-panel'
 import './app.css'
 
 const data = [
-	{ name: 'Tony C.', salary: 800, increase: false, id: 1, like: false },
-	{ name: 'Den S.', salary: 500, increase: false, id: 2, like: false },
-	{ name: 'Alex A.', salary: 1200, increase: true, id: 3, like: false },
-	{ name: 'Ponya A.', salary: 2200, increase: true, id: 4, like: false }
+	{ name: 'Tony C.', salary: 800, increase: false, id: 1 },
+	{ name: 'Den S.', salary: 500, increase: false, id: 2 },
+	{ name: 'Alex A.', salary: 1200, increase: true, id: 3 },
+	{ name: 'Ponya A.', salary: 2200, increase: true, id: 4 }
 ]
 
 export default function App() {
