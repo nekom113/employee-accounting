@@ -23,9 +23,12 @@ export default class EmployeesListItem extends Component {
 			promotion: !promotion
 		}))
 	}
+	onDelete = () => {
+		console.log('z znac')
+	}
 
 	render() {
-		const { name, salary } = this.props
+		const { name, salary, onDelete } = this.props
 		const { increase, promotion } = this.state
 		let styleProperty = "list-group-item d-flex justify-content-between"
 		if (increase) {
@@ -35,8 +38,8 @@ export default class EmployeesListItem extends Component {
 			styleProperty += ' like';
 		}
 		return (
-			<li onClick={this.toPromotion} className={styleProperty}>
-				<span className="list-group-item-label">{name}</span>
+			<li className={styleProperty}>
+				<span onClick={this.toPromotion} className="list-group-item-label">{name}</span>
 				<input type="text" className="list-group-item-input" defaultValue={`${salary}$`} />
 				<div className='d-flex justify-content-center align-items-center'>
 					<button onClick={this.onIncreace} type="button"
@@ -45,10 +48,12 @@ export default class EmployeesListItem extends Component {
 					</button>
 
 					<button type="button"
-						className="btn-trash btn-sm ">
+						className="btn-trash btn-sm "
+						onClick={onDelete}
+					>
 						<i className="fas fa-trash"></i>
 					</button>
-					<i className="fas fa-star"></i>
+					<i onClick={this.toPromotion} className="fas fa-star"></i>
 				</div>
 			</li>
 		)
