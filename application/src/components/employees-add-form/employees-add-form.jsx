@@ -16,12 +16,23 @@ export default class EmployeesAddForm extends Component {
 			[ev.target.name]: ev.target.value // в [] - просиходит формирование свойства, которое варьируется в зависимости от инпута. Предварительно назначаем атрибут name на нужный инпут и от этого отталкиваться, они должны совпадать с названиями свойств стейта
 		})
 	}
+	onSubmit = (e) => {
+		e.preventDefault()
+		const { addItem } = this.props
+		addItem(this.state.name, this.state.salary)
+		this.setState({
+			name: '',
+			salary: ''
+		})
+	}
 	render() {
 		const { name, salary } = this.state
+
 		return (
 			<div className="app-add-form">
 				<h3>Добавьте нового сотрудника</h3>
 				<form
+					onSubmit={this.onSubmit}
 					className="add-form d-flex">
 					<input type="text"
 						className="form-control new-post-label"
@@ -37,8 +48,10 @@ export default class EmployeesAddForm extends Component {
 						value={salary}//управляемые компоненты, нужно чтобы реакт компонент рендерил форму и контролировал ее поведение в ответ на пользовательский ввод и в него помещать значение стейта. 
 						onChange={this.onValueChange} />
 
-					<button type="submit"
-						className="btn btn-outline-light">Добавить</button>
+					<button
+						type="submit"
+						className="btn btn-outline-light"
+					>Добавить</button>
 				</form>
 			</div>
 		)
