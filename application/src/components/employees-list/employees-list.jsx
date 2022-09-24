@@ -7,7 +7,7 @@ export default function EmployeesList({ data, onDelete, onToggle }) {
 
 		return (
 			<EmployeesListItem
-				key={id} {...itemProps}  // key={index} name={el.name} salary={el.salary}
+				key={id} {...itemProps}
 				onToggle={(e) => onToggle(id, e.currentTarget.getAttribute('data-toggle'))}
 				onDelete={() => onDelete(id)}
 			/>

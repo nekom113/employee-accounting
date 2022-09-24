@@ -13,7 +13,7 @@ export default class EmployeesAddForm extends Component {
 	}
 	onValueChange = (ev) => {
 		this.setState({
-			[ev.target.name]: ev.target.value // в [] - просиходит формирование свойства, которое варьируется в зависимости от инпута. Предварительно назначаем атрибут name на нужный инпут и от этого отталкиваться, они должны совпадать с названиями свойств стейта
+			[ev.target.name]: ev.target.value
 		})
 	}
 	onSubmit = (e) => {

@@ -30,6 +30,7 @@ export default class App extends Component {
 	}
 
 	addItem = (name, salary) => {
+
 		const newItem = {
 			name,
 			salary,
@@ -37,14 +38,16 @@ export default class App extends Component {
 			rise: false,
 			id: nextId()
 		}
-
-
-		this.setState(({ data }) => {
-			const newData = [...data, newItem]
-			return {
-				data: newData
-			}
-		})
+		if (name && salary) {
+			this.setState(({ data }) => {
+				const newData = [...data, newItem]
+				return {
+					data: newData
+				}
+			})
+		} else {
+			console.log("Значения не найдены")
+		}
 	}
 
 	onToggle = (id, prop) => {
@@ -89,7 +92,7 @@ export default class App extends Component {
 				}
 				return item
 			})
-		}))	
+		}))
 	}
 
 
