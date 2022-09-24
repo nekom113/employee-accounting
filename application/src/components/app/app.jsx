@@ -13,10 +13,10 @@ export default class App extends Component {
 		super(props)
 		this.state = {
 			data: [
-				{ name: 'Tony C.', salary: 800, increase: false, id: 1 },
-				{ name: 'Den S.', salary: 500, increase: false, id: 2 },
-				{ name: 'Alex A.', salary: 1200, increase: true, id: 3 },
-				{ name: 'Ponya A.', salary: 2200, increase: false, id: 4 }
+				{ name: 'Tony C.', salary: 800, increase: false, promotion: true, id: 1 },
+				{ name: 'Den S.', salary: 500, increase: false, promotion: false, id: 2 },
+				{ name: 'Alex A.', salary: 1200, increase: true, promotion: false, id: 3 },
+				{ name: 'Ponya A.', salary: 2200, increase: false, promotion: false, id: 4 }
 			]
 		}
 	}
@@ -34,10 +34,9 @@ export default class App extends Component {
 			name,
 			salary,
 			increase: false,
+			rise: false,
 			id: nextId()
 		}
-		console.log(newItem);
-		console.log(this.state.data)
 
 
 		this.setState(({ data }) => {
@@ -47,17 +46,69 @@ export default class App extends Component {
 			}
 		})
 	}
+
+	onToggle = (id, prop) => {
+		this.setState(({ data }) => ({
+			data: data.map(item => {
+				if (item.id === id) {
+					return { ...item, [prop]: !item[prop] }
+				}
+				return item
+			})
+		}))
+	}
+
+
+	onToggleIncrease = (id) => {
+		// this.setState(({ data }) => {
+		// 	const index = data.findIndex(el => el.id === id)
+		// 	const old = data[index];
+		// 	const newItem = { ...old, increase: !old.increase }
+		// 	const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+		// 	return {
+		// 		data: newArr
+		// 	}
+		// })
+		this.setState(({ data }) => ({
+			data: data.map(item => {
+				if (item.id === id) {
+					return { ...item, increase: !item.increase }
+				}
+				return item
+			})
+		}))
+	}
+
+
+	onToggleRise = (id) => {
+		this.setState(({ data }) => ({
+			data: data.map(item => {
+				if (item.id === id) {
+					return { ...item, promotion: !item.promotion }
+				}
+				return item
+			})
+		}))	
+	}
+
+
+
 	render() {
+		const countStaff = this.state.data.length
+		const countEmploeeBonus = this.state.data.filter(el => el.increase).length
+		const countEmploeePromotion = this.state.data.filter(el => el.promotion).length
 		return (
 			<div className="app" >
-				<AppInfo />
+				<AppInfo countStaff={countStaff} countEmploeeBonus={countEmploeeBonus} countEmploeePromotion={countEmploeePromotion} />
 				<div className="search-panel">
 					<SearchPanel />
 					<AppFilter />
 				</div>
 				<EmployeesList
 					data={this.state.data}
-					onDelete={this.deleteItem} />
+					onDelete={this.deleteItem}
+					onToggle={this.onToggle} />
 				<EmployeesAddForm
 					addItem={this.addItem}
 				/>
