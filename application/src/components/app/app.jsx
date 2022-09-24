@@ -17,7 +17,8 @@ export default class App extends Component {
 				{ name: 'Den S.', salary: 500, increase: false, promotion: false, id: 2 },
 				{ name: 'Alex A.', salary: 1200, increase: true, promotion: false, id: 3 },
 				{ name: 'Ponya A.', salary: 2200, increase: false, promotion: false, id: 4 }
-			]
+			],
+			part: ''
 		}
 	}
 
@@ -60,56 +61,32 @@ export default class App extends Component {
 			})
 		}))
 	}
-
-
-	onToggleIncrease = (id) => {
-		// this.setState(({ data }) => {
-		// 	const index = data.findIndex(el => el.id === id)
-		// 	const old = data[index];
-		// 	const newItem = { ...old, increase: !old.increase }
-		// 	const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
-
-		// 	return {
-		// 		data: newArr
-		// 	}
-		// })
-		this.setState(({ data }) => ({
-			data: data.map(item => {
-				if (item.id === id) {
-					return { ...item, increase: !item.increase }
-				}
-				return item
-			})
-		}))
+	searchData = (items, part) => {
+		if (part.lenght === 0) {
+			return items
+		}
+		return items.filter(item => {
+			return item.name.indexOf(part) > -1
+		})
 	}
-
-
-	onToggleRise = (id) => {
-		this.setState(({ data }) => ({
-			data: data.map(item => {
-				if (item.id === id) {
-					return { ...item, promotion: !item.promotion }
-				}
-				return item
-			})
-		}))
+	onUpdateSearch = (part) => {
+		this.setState({ part });
 	}
-
-
-
 	render() {
+		const { data, part } = this.state
 		const countStaff = this.state.data.length
 		const countEmploeeBonus = this.state.data.filter(el => el.increase).length
 		const countEmploeePromotion = this.state.data.filter(el => el.promotion).length
+		const visibleData = this.searchData(data, part)
 		return (
 			<div className="app" >
 				<AppInfo countStaff={countStaff} countEmploeeBonus={countEmploeeBonus} countEmploeePromotion={countEmploeePromotion} />
 				<div className="search-panel">
-					<SearchPanel />
+					<SearchPanel onUpdateSearch={this.onUpdateSearch} />
 					<AppFilter />
 				</div>
 				<EmployeesList
-					data={this.state.data}
+					data={visibleData}
 					onDelete={this.deleteItem}
 					onToggle={this.onToggle} />
 				<EmployeesAddForm
